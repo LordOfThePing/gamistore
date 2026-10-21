@@ -1,0 +1,47 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import ProductCard from '@/components/ProductCard.astro';
+import TrustBar from '@/components/TrustBar.astro';
+import { categories, categoryOrder, type CategoryKey } from '@/data/categories';
+import { getByCategory } from '@/data/products';
+
+export function getStaticPaths() {
+  return categoryOrder.map(k => ({ params: { category: k } }));
+}
+
+const { category } = Astro.params as { category: CategoryKey };
+const cat = categories[category];
+const items = getByCategory(category);
+---
+<Layout title={cat.name} description={cat.tagline}>
+  <section class="cat-hero">
+    <div class="container">
+      <div style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap;">
+        <div style="font-size: 3rem; filter: drop-shadow(0 10px 20px rgba(0,0,0,.4));">{cat.emoji}</div>
+        <div>
+          <h1 style="margin: 0;">{cat.name}</h1>
+          <p>{cat.tagline}</p>
+        </div>
+      </div>
+      <div class="cat-strip" style="margin-top: 24px;">
+        {categoryOrder.map(k => (
+          <a href={`/categoria/${k}`} class={`cat-pill ${k === category ? 'active' : ''}`}>
+            <span>{categories[k].emoji}</span>
+            <span>{categories[k].name}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 20px;">
+    <div class="container">
+      <div class="cat-count">{items.length} modelo{items.length === 1 ? '' : 's'} disponibles</div>
+      <div class="product-grid">
+        {items.map(prod => <ProductCard product={prod} />)}
+      </div>
+    </div>
+  </section>
+
+  <TrustBar />
+</Layout>

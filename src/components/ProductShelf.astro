@@ -1,0 +1,35 @@
+---
+import ProductCard from './ProductCard.astro';
+import type { Product } from '@/data/products';
+
+interface Props {
+  title: string;
+  subtitle?: string;
+  products: Product[];
+  viewAllHref?: string;
+  viewAllLabel?: string;
+  id?: string;
+  layout?: 'grid' | 'shelf';
+}
+const { title, subtitle, products, viewAllHref, viewAllLabel = 'Ver todo', id, layout = 'shelf' } = Astro.props;
+---
+<section class="section" id={id}>
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <h2>{title}</h2>
+        {subtitle && <p>{subtitle}</p>}
+      </div>
+      {viewAllHref && <a href={viewAllHref}>{viewAllLabel} →</a>}
+    </div>
+    <div class="container">
+      <div class={layout === 'grid' ? 'product-grid' : 'product-shelf'}>
+        {products.map(prod => <ProductCard product={prod} />)}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .container .container { padding: 0; }
+</style>

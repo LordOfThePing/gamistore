@@ -1,0 +1,40 @@
+---
+import type { Product } from '@/data/products';
+import { categories } from '@/data/categories';
+import { money, cuotasOf, percentOff } from '@/lib/format';
+
+interface Props {
+  product: Product;
+}
+const { product } = Astro.props;
+const cat = categories[product.category];
+const off = product.oldPrice ? percentOff(product.price, product.oldPrice) : 0;
+---
+<article class="card fade-up" style={`--card-bg-a: ${cat.bgA}; --card-bg-b: ${cat.bgB}`}>
+  <a href={`/producto/${product.id}`} class="card-img" aria-label={product.name}>
+    <span class="card-img-emoji">{cat.emoji}</span>
+    <div class="card-badges">
+      {product.badge === 'HOT' && <span class="badge badge-hot">🔥 Hot</span>}
+      {product.badge === 'NEW' && <span class="badge badge-new">Nuevo</span>}
+      {product.badge === 'SALE' && off > 0 && <span class="badge badge-sale">-{off}%</span>}
+      {product.badge === 'SALE' && off === 0 && <span class="badge badge-sale">Oferta</span>}
+    </div>
+  </a>
+  <div class="card-body">
+    <div class="card-cat">{cat.name}</div>
+    <a href={`/producto/${product.id}`} class="card-name">{product.name}</a>
+    <div class="card-prices">
+      <span class="card-price">{money(product.price)}</span>
+      {product.oldPrice && <span class="card-price-old">{money(product.oldPrice)}</span>}
+    </div>
+    <div class="card-cuotas">{cuotasOf(product.price)}</div>
+    <button
+      class="card-add"
+      data-add-to-cart
+      data-id={product.id}
+      data-name={product.name}
+      data-price={product.price}
+      data-emoji={cat.emoji}
+    >+ Agregar al carrito</button>
+  </div>
+</article>

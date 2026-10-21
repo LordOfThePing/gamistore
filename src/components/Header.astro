@@ -1,0 +1,38 @@
+---
+import { siteConfig } from '@/config/site';
+---
+<header class="header">
+  <div class="container header-inner">
+    <a href="/" class="logo" aria-label={siteConfig.storeName}>{siteConfig.storeName}</a>
+    <nav class="nav" data-nav aria-label="Principal">
+      <a href="/categoria/iphone">iPhone</a>
+      <a href="/categoria/macbook">MacBook</a>
+      <a href="/categoria/ipad">iPad</a>
+      <a href="/categoria/apple-watch">Watch</a>
+      <a href="/categoria/airpods">AirPods</a>
+      <a href="/categoria/playstation">PlayStation</a>
+      <a href="/categoria/samsung">Samsung</a>
+      <a href="/#todo">Todo</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn" data-menu-toggle aria-label="Abrir menú">
+        <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+      <a href="/carrito" class="icon-btn" aria-label="Carrito" id="header-cart">
+        <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        <span class="cart-badge" data-cart-badge data-count="0">0</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<script>
+  // On homepage: cart icon opens drawer. On other pages: navigates to /carrito.
+  const cartLink = document.getElementById('header-cart') as HTMLAnchorElement | null;
+  if (cartLink && location.pathname === '/') {
+    cartLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.dispatchEvent(new CustomEvent('drawer:open'));
+    });
+  }
+</script>

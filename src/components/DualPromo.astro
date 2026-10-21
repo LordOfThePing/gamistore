@@ -1,0 +1,33 @@
+---
+interface Promo {
+  variant: 'red' | 'blue' | 'green' | 'default';
+  eyebrow: string;
+  title: string;
+  text: string;
+  cta: string;
+  href: string;
+  emoji: string;
+}
+interface Props { a: Promo; b: Promo; }
+const { a, b } = Astro.props;
+---
+<section class="section">
+  <div class="container">
+    <div class="dual-promo">
+      {[a, b].map(it => {
+        const cls = it.variant === 'default' ? 'feature-banner' : `feature-banner variant-${it.variant}`;
+        return (
+          <div class={`${cls} fade-up`}>
+            <div class="feature-banner-text">
+              <span class="hero-eyebrow">{it.eyebrow}</span>
+              <h2>{it.title}</h2>
+              <p>{it.text}</p>
+              <a href={it.href} class="btn btn-primary">{it.cta} →</a>
+            </div>
+            <div class="feature-banner-visual">{it.emoji}</div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,26 @@
+---
+interface Props {
+  variant?: 'red' | 'blue' | 'green' | 'default';
+  eyebrow?: string;
+  title: string;
+  text: string;
+  cta: string;
+  href: string;
+  emoji: string;
+}
+const { variant = 'default', eyebrow, title, text, cta, href, emoji } = Astro.props;
+const cls = variant === 'default' ? 'feature-banner' : `feature-banner variant-${variant}`;
+---
+<section class="section">
+  <div class="container">
+    <div class={`${cls} fade-up`}>
+      <div class="feature-banner-text">
+        {eyebrow && <span class="hero-eyebrow">{eyebrow}</span>}
+        <h2>{title}</h2>
+        <p>{text}</p>
+        <a href={href} class="btn btn-primary">{cta} →</a>
+      </div>
+      <div class="feature-banner-visual">{emoji}</div>
+    </div>
+  </div>
+</section>

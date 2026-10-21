@@ -1,0 +1,36 @@
+---
+import { categories, categoryOrder, type CategoryKey } from '@/data/categories';
+import { categoryCount } from '@/data/products';
+
+interface Props {
+  only?: CategoryKey[];
+  title?: string;
+  subtitle?: string;
+}
+const { only, title = 'Explorá por categoría', subtitle } = Astro.props;
+const keys = only ?? categoryOrder;
+---
+<section class="section" id="todo">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <h2>{title}</h2>
+        {subtitle && <p>{subtitle}</p>}
+      </div>
+    </div>
+    <div class="cat-grid">
+      {keys.map(k => {
+        const c = categories[k];
+        const n = categoryCount(k);
+        if (n === 0) return null;
+        return (
+          <a href={`/categoria/${k}`} class="cat-tile fade-up" style={`background: linear-gradient(135deg, ${c.bgA} 0%, ${c.bgB} 100%)`}>
+            <span class="cat-tile-emoji">{c.emoji}</span>
+            <span class="cat-tile-label">{c.name}</span>
+            <span class="cat-tile-count">{n} modelo{n > 1 ? 's' : ''}</span>
+          </a>
+        );
+      })}
+    </div>
+  </div>
+</section>

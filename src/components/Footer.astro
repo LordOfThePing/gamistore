@@ -1,0 +1,52 @@
+---
+import { siteConfig } from '@/config/site';
+const waUrl = `https://wa.me/${siteConfig.whatsappNumber}`;
+---
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo" style="font-size: 1.5rem; margin-bottom: 10px;">{siteConfig.storeName}</div>
+        <p>{siteConfig.slogan}. Productos originales, garantía oficial y envío a todo el país.</p>
+        <a class="footer-wa" href={waUrl} target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.555-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.595 5.392l-.999 3.648 3.893-.739z"/></svg>
+          Hablar por WhatsApp
+        </a>
+      </div>
+      <div>
+        <h4>Catálogo</h4>
+        <div class="footer-links">
+          <a href="/categoria/iphone">iPhone</a>
+          <a href="/categoria/macbook">MacBook</a>
+          <a href="/categoria/ipad">iPad</a>
+          <a href="/categoria/apple-watch">Apple Watch</a>
+          <a href="/categoria/playstation">PlayStation</a>
+          <a href="/categoria/samsung">Samsung</a>
+        </div>
+      </div>
+      <div>
+        <h4>Más</h4>
+        <div class="footer-links">
+          <a href="/categoria/airpods">AirPods</a>
+          <a href="/categoria/nintendo">Nintendo</a>
+          <a href="/categoria/gopro">GoPro</a>
+          <a href="/categoria/insta360">Insta360</a>
+          <a href="/categoria/meta">Meta Quest</a>
+          <a href="/categoria/tom-ford">Tom Ford</a>
+        </div>
+      </div>
+      <div>
+        <h4>Comprar</h4>
+        <div class="footer-links">
+          <a href="/carrito">Mi carrito</a>
+          <a href={waUrl} target="_blank" rel="noopener">Consultar stock</a>
+          <a href={waUrl} target="_blank" rel="noopener">Hablar con asesor</a>
+          <a href={waUrl} target="_blank" rel="noopener">Mayoristas</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © {new Date().getFullYear()} {siteConfig.storeName}. Todos los derechos reservados.
+    </div>
+  </div>
+</footer>

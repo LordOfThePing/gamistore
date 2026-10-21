@@ -1,0 +1,170 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Hero from '@/components/Hero.astro';
+import ProductShelf from '@/components/ProductShelf.astro';
+import FeatureBanner from '@/components/FeatureBanner.astro';
+import DualPromo from '@/components/DualPromo.astro';
+import CategoryGrid from '@/components/CategoryGrid.astro';
+import TrustBar from '@/components/TrustBar.astro';
+import { products, getByCategory, getNew, getOnSale } from '@/data/products';
+
+const heroHighlights = products.filter(p => p.heroHighlight).slice(0, 8);
+const macbooks = getByCategory('macbook').filter(p => p.featured).slice(0, 10);
+const iphones = getByCategory('iphone').slice(0, 10);
+const playstation = getByCategory('playstation').slice(0, 10);
+const ipads = getByCategory('ipad').filter(p => p.featured || p.badge === 'NEW').slice(0, 10);
+const watches = getByCategory('apple-watch').filter(p => p.featured || p.badge === 'NEW').slice(0, 10);
+const airpods = getByCategory('airpods').slice(0, 10);
+const samsungs = getByCategory('samsung').slice(0, 10);
+const nuevos = getNew().slice(0, 10);
+const ofertas = getOnSale().slice(0, 10);
+---
+<Layout>
+  <Hero />
+
+  <!-- Hero bestsellers: the big-ticket items -->
+  <ProductShelf
+    id="destacados"
+    title="🏆 Los más buscados"
+    subtitle="Los lanzamientos que todos quieren."
+    products={heroHighlights}
+    viewAllHref="/#todo"
+  />
+
+  <!-- Marketing banner #1: MacBook -->
+  <FeatureBanner
+    variant="default"
+    eyebrow="MacBook — Edición pro"
+    title="Hasta 20% OFF en toda la línea MacBook"
+    text="Chip M5, hasta 24h de batería, pantalla Liquid Retina XDR. 12 cuotas sin interés."
+    cta="Ver MacBooks"
+    href="/categoria/macbook"
+    emoji="💻"
+  />
+
+  <ProductShelf
+    title="MacBook — del M1 al M5"
+    subtitle="La potencia de Apple Silicon al mejor precio."
+    products={macbooks}
+    viewAllHref="/categoria/macbook"
+  />
+
+  <!-- Dual: iPhone + PS5 -->
+  <DualPromo
+    a={{
+      variant: 'red',
+      eyebrow: '🔥 Hot',
+      title: 'iPhone 17 Pro Max ya disponible',
+      text: 'Titanio, cámara 48MP, chip A19 Pro. Entregá tu usado y pagá menos.',
+      cta: 'Ver iPhones',
+      href: '/categoria/iphone',
+      emoji: '📱'
+    }}
+    b={{
+      variant: 'blue',
+      eyebrow: '🎮 Gamer',
+      title: 'PlayStation 5 Pro — máxima potencia',
+      text: 'El salto generacional que estabas esperando. Bundles con juegos incluidos.',
+      cta: 'Ver PlayStation',
+      href: '/categoria/playstation',
+      emoji: '🎮'
+    }}
+  />
+
+  <ProductShelf
+    title="iPhone"
+    subtitle="Toda la familia, del 11 al 18 Pro Max."
+    products={iphones}
+    viewAllHref="/categoria/iphone"
+  />
+
+  <ProductShelf
+    title="PlayStation"
+    subtitle="Consolas, bundles y accesorios."
+    products={playstation}
+    viewAllHref="/categoria/playstation"
+  />
+
+  <!-- Marketing banner #2: Switch 2 -->
+  <FeatureBanner
+    variant="red"
+    eyebrow="🕹️ Novedad 2026"
+    title="Nintendo Switch 2 — jugá como nunca"
+    text="Más potencia, mejor pantalla y compatibilidad con tu biblioteca completa."
+    cta="Reservá la tuya"
+    href="/categoria/nintendo"
+    emoji="🎮"
+  />
+
+  <ProductShelf
+    title="iPad"
+    subtitle="De 10.2 a 13 pulgadas. Chip M5 ya disponible."
+    products={ipads}
+    viewAllHref="/categoria/ipad"
+  />
+
+  <ProductShelf
+    title="Apple Watch"
+    subtitle="Series 11, SE 3, Ultra 3 y más."
+    products={watches}
+    viewAllHref="/categoria/apple-watch"
+  />
+
+  <!-- Ofertas -->
+  {ofertas.length > 0 && (
+    <ProductShelf
+      title="⚡ Ofertas de la semana"
+      subtitle="Precios con descuento por tiempo limitado."
+      products={ofertas}
+    />
+  )}
+
+  <!-- Dual: AirPods + Samsung -->
+  <DualPromo
+    a={{
+      variant: 'green',
+      eyebrow: '🎧 Audio',
+      title: 'AirPods Pro 3 recién llegados',
+      text: 'Cancelación de ruido activa de nueva generación + Audio Espacial.',
+      cta: 'Comprar AirPods',
+      href: '/categoria/airpods',
+      emoji: '🎧'
+    }}
+    b={{
+      variant: 'blue',
+      eyebrow: '📱 Galaxy',
+      title: 'Samsung S26 Ultra — Galaxy AI',
+      text: 'Cámara de 200MP, S Pen integrado, pantalla Dynamic AMOLED 2X.',
+      cta: 'Ver Samsung',
+      href: '/categoria/samsung',
+      emoji: '📱'
+    }}
+  />
+
+  <ProductShelf
+    title="AirPods"
+    subtitle="Audio inmersivo, libertad total."
+    products={airpods}
+    viewAllHref="/categoria/airpods"
+  />
+
+  <ProductShelf
+    title="Samsung Galaxy"
+    subtitle="La línea completa, de la A a la Ultra."
+    products={samsungs}
+    viewAllHref="/categoria/samsung"
+  />
+
+  <!-- Lanzamientos -->
+  {nuevos.length > 0 && (
+    <ProductShelf
+      title="🆕 Recién llegados"
+      subtitle="Los últimos lanzamientos ya disponibles."
+      products={nuevos}
+    />
+  )}
+
+  <CategoryGrid />
+
+  <TrustBar />
+</Layout>
